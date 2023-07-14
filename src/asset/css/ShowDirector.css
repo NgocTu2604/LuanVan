@@ -1,0 +1,27 @@
+.director-info-content{
+    display: inline-flex ;
+}
+.director-info-item{
+    padding: 0 0 35px 0;
+}
+.wrap-director{
+    display: block;
+}
+.title{
+    padding: 10px 10px 10px 30px;
+}
+.director-info{
+    padding-left: 20px;
+}
+.director-info h5{
+    padding-top: 0;
+    margin-top: 0;
+}
+.img{
+    width: 280px;
+    height: 185px;
+}
+.director-info-wrap{
+    margin: 0 auto;
+    padding: 10px 0 10px 75px;
+}

@@ -1,0 +1,50 @@
+.wrap-booking-ticket {
+  display: flex;
+  margin: 10px;
+  
+}
+.booking-ticket-content{
+    margin: 0 auto;
+    background: orange;
+    
+    
+}
+.booking-ticket-content h2{
+    color: #FFFFFF;
+    padding-left: 10px;
+
+}
+
+.booking-ticket{
+    margin: 10px;
+    /* padding: 10px; */
+}
+.booking-ticket input{
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 5px;
+    user-select: none;
+
+}
+.booking-ticket i{
+    user-select: none;
+}
+.input{
+    user-select: none;
+}
+
+.booking-ticket th, td{
+    /* border: 1px solid black; */
+    padding: 20px;
+}
+.booking-ticket th{
+    background-color: #47251c;
+    color: #FFFFFF;
+}
+.booking-ticket tr{
+    background-color: #ffffff;
+
+}
+

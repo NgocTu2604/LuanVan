@@ -1,0 +1,207 @@
+/*Thanh header*/
+.header {
+  display: flex;
+  justify-content: space-around;
+}
+.header-logo {
+  font-size: 50px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.header-login {
+  padding: 20px 0;
+  display: flex;
+}
+.header-login p {
+  margin: 20px;
+}
+
+/*thanh searchbar*/
+.search-bar-container{
+  padding-top: 10px;
+  width: 30%;
+  /* margin: auto; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+}
+
+
+/**/
+
+/*HIEN THI SLIDE*/
+.big-wrap{
+  position: relative;
+}
+.wrap-slide{
+  height: 300px;
+}
+.slide-item-wrap{
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+/**/
+
+/*Hien thi phim*/
+
+.wrap-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 50px;
+  padding: 30px;
+}
+
+.content-item img {
+  height: 300px;
+  width: 450px;
+  user-select: none;
+}
+.content-item-wrap {
+  position: relative;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
+
+}
+.content-item-wrap:hover .image {
+  opacity: 0.3;
+}
+.content-item-wrap:hover .middle {
+  opacity: 1;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
+.middle {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  cursor: pointer;
+
+}
+.text {
+  background-color: #04aa6d;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+  cursor: pointer;
+}
+.img-title {
+  color: black;
+}
+
+.img-sub-title {
+  font-size: 16px;
+  color: #43464b;
+  text-transform: capitalize;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #a0a3a7;
+}
+/**/
+
+
+/*footer*/
+.footer-bg {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 0px 15px 20px 15px;
+  font-size: 20px;
+  user-select: none;
+}
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  height: 260px;
+}
+
+.footer-widget {
+  background-color: #f26b38;
+  content: "";
+  height: 22px;
+  left: 0;
+  position: absolute;
+  top: -2px;
+  width: 4px;
+}
+.footer-item {
+  list-style-type: none;
+  line-height: 60px;
+  color: #ffffffb3;
+}
+.footer-item h1 {
+  font-size: 30px;
+}
+
+.footer-item li {
+  font-size: 18px;
+  line-height: 40px;
+  cursor: pointer;  
+}
+.footer-item li:hover{
+  color: red;
+}
+/**/
+
+/*Thanh logo bottom*/
+.footer-bottom {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 40px 15px 20px 15px;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
+  user-select: none;  
+}
+
+.footer-bottom-logo {
+  margin: 0 50px 0 100px;
+}
+.footer-bottom-logo:hover, .footer-bottom-address:hover{
+  color: red;
+}
+/**/
+
+/*login form*/
+.container_form {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  z-index: 90;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.232);
+}
+
+.close_form {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ced0da;
+  padding: 16px;
+  cursor: pointer;
+}
+/**/
+

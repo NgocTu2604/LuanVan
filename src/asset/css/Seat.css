@@ -1,0 +1,67 @@
+.wrap-seat {
+  height: 600px;
+  width: 1000px;
+  border: solid;
+  margin: 10px;
+}
+.screen {
+  margin: 10px;
+  font-size: 30px;
+  text-align: center;
+  padding: 10px;
+  border-style: solid;
+  /* border-width: 1px; */
+}
+
+.seat {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+
+}
+
+
+.seat-item{
+  margin: 10px 10px;
+  height: 50px;
+  width: 50px;
+  border: solid;
+  background-color: #d3d3d3;
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;  
+  user-select: none;
+}
+
+
+.description {
+  display: flex;
+  justify-content: space-around;
+}
+.des-seat-status {
+  display: flex;
+}
+.des-seat-info {
+  padding-left: 10px;
+  margin: auto;
+}
+
+/*CÁC LOẠI GHẾ*/
+.seat-select {
+  height: 50px;
+  width: 50px;
+  border: solid;
+  background-color: #04aa6d;
+}
+.seat-empty {
+  height: 50px;
+  width: 50px;
+  border: solid;
+  background-color: #d3d3d3;
+}
+.seat-sold {
+  height: 50px;
+  width: 50px;
+  border: solid;
+  background-color: red;
+}

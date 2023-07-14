@@ -1,0 +1,12 @@
+.wrap-content-ticket{
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    width: 50%;
+    height: 300px;  
+}
+
+.content-ticket .mr5 .mh5{
+    color: blue;
+    border:1px solid black;
+}

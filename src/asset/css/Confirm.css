@@ -1,0 +1,40 @@
+.wrap-confirm {
+  display: flex;
+  margin: 10px;
+}
+.wrap-confirm-content {
+  margin: 0 auto;
+  background: orange;
+}
+.wrap-confirm-content h2 {
+  color: #ffffff;
+  padding-left: 10px;
+}
+.select {
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.confirm {
+  margin: 10px;
+}
+.confirm tr {
+  background-color: #ffffff;
+}
+.confirm input{
+  padding: 10px 20px;
+  width: 79%;
+}
+.submit{
+  display: flex;
+  justify-content: center;
+}
+.confirm button{
+  margin: 10px;
+  width: 100px;
+  font-size: 14px;
+  color: #f1f1f1;
+  background-color: #04aa6d;
+  padding: 10px;
+  cursor: pointer;
+}

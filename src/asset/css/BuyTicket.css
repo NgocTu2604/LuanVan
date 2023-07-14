@@ -1,0 +1,38 @@
+.wrap-buy {
+  padding: 10px 12px 0 10px;
+  width: 350px;
+  box-shadow: 0 0 21px rgb(0 0 0 / 20%);
+  background: #fff;
+  
+  margin: 10px 50px 10px 1000px;
+}
+.buy {
+  background-color: #04aa6d;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 12px 26px;
+  width: 15%;
+  text-align: center;
+  
+}
+
+
+.buy-ticket-item {
+  /* border-width: 1px;
+  border-style: solid; */
+  padding: 10px;
+  margin: 10px;
+}
+.submit {
+  display: grid;
+  justify-content: right;
+  padding: 10px;
+}
+.btn-buy {
+  padding: 5px 20px;
+  cursor: pointer;
+}
+.item{
+  padding: 10px 20px;
+  width: 100%;
+}

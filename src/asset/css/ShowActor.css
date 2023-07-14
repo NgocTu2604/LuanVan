@@ -1,0 +1,27 @@
+.actor-info-content{
+    display: inline-flex ;
+}
+.actor-info-item{
+    padding: 0 0 35px 0;
+}
+.wrap-actor{
+    display: block;
+}
+.title{
+    padding: 10px 10px 10px 30px;
+}
+.actor-info{
+    padding-left: 20px;
+}
+.actor-info h5{
+    padding-top: 0;
+    margin-top: 0;
+}
+.img{
+    width: 280px;
+    height: 185px;
+}
+.actor-info-wrap{
+    margin: 0 auto;
+    padding: 10px 0 10px 75px;
+}
