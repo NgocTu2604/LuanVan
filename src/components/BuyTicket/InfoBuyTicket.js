@@ -14,6 +14,7 @@ function InfoBuyTicket(props) {
     total,
     amountTicket,
   } = props;
+  console.log(values);
   const [movie, setMovie] = useState([]);
   const userData = JSON.parse(localStorage.getItem("user"));
 
@@ -21,6 +22,7 @@ function InfoBuyTicket(props) {
     const getMovie = async () => {
       const res = await fetch(`${API}movie/info/${values.choiceMovie}`);
       const getData = await res.json();
+      console.log();
       setMovie(getData.data[0]);
       // console.log(getData.data);
     };
@@ -54,18 +56,19 @@ function InfoBuyTicket(props) {
       })
       .catch((error) => console.log(error));
   };
-  console.log(listSeat);
+  // console.log(listSeat);
   const handleAddTicket = async (id) => {
     listSeat.map(async(item)=>{
       const value = {
         ticket_type_id: 1,
         movie_price_id: 1,
         seat_id: item,
-        room_id:1,
+        // room_id:1,
         schedule_id: Number(values.idChoiceSchedule),
         calendars_id: Number(values.idChoiceDay),
         bill_id: id,
       };
+      console.log(listSeat);
   
       console.log(value);
       const requestOptions = {

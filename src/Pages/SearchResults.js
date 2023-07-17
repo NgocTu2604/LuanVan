@@ -4,5 +4,5 @@ import { Link } from "react-router-dom";
 
 export const SearchResults = ({results}) => {
   console.log(results);
-  return <Link to={`/InfoMovie/${results.id}`} > <div className="search-results">{results.title}</div></Link>;
+  return <Link style={{textDecoration: "none", fontSize: "large"}} to={`/InfoMovie/${results.id}`} > <div  className="search-results">{results.title}</div></Link>;
 };

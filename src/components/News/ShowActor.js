@@ -23,6 +23,10 @@ function ShowActor(props) {
     };
     getActor();
   }, []);
+
+  const handleViewDetail = (item) => {
+    navigate(`/InfoMovie/`);
+  };
   return (
     <div>
       <div className="actor-info-wrap">
@@ -39,11 +43,18 @@ function ShowActor(props) {
                 <div className="actor-info-item">
                   <div className="actor-info-content">
                     <div>
-                      <img className="img" src={item.image} alt=""></img>
+                      <img
+                        onClick={() => handleViewDetail(item)}
+                        className="img"
+                        src={item.image}
+                        alt=""
+                      ></img>
                     </div>
                     <div className="actor-info">
-                      <h5>Tên: {item.full_name} </h5>
+                      <h5>{item.full_name} </h5>
                       <p>Ngày sinh: {item.birthday}</p>
+                      <p style={{width: "50%"}}>{item.story}</p>
+
                     </div>
                   </div>
                 </div>

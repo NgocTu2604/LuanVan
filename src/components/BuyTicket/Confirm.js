@@ -56,8 +56,8 @@ function Confirm(props) {
                   Chọn phương thức thanh toán
                 </option>
                 <option className="item">MoMo</option>
-                <option className="item">Zalo</option>
-                <option className="item">Banking</option>
+                {/* <option className="item">Zalo</option>
+                <option className="item">Banking</option> */}
               </select>
             </td>
           </tr>

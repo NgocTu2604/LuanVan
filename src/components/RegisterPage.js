@@ -78,10 +78,10 @@ export default function RegisterPage(props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
-      await fetch(`${API}user/create/`, requestOptions)
+      await fetch(`${API}user/register`, requestOptions)
         .then((response) => {
           console.log(response);
-          if (response.status === 200) {
+          if (response.status === 201) {
             alert("Register success");
           }
         })

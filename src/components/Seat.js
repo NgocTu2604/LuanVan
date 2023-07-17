@@ -13,7 +13,7 @@ function Seat(props) {
   useEffect(() => {
     const getSeat = async () => {
       const res = await fetch(
-        `${API}room/getListSeat/${values.idChoiceTheather};${values.idChoiceSchedule};${values.choiceDay}`
+        `${API}room/getListSeat/calendar_id=${values.idChoiceDay}&schedule_id=${values.idChoiceSchedule}`
       );
       const getData = await res.json();
       setSeat(getData.data);
@@ -23,7 +23,6 @@ function Seat(props) {
   const handleChoiceTicket = (item) => {
     setListSeat((prevListSeat) => {
       const isAlreadySelected = prevListSeat.includes(item.id);
-
       if (isAlreadySelected) {
         return prevListSeat.filter((seat) => seat !== item.id);
       } else if (prevListSeat.length === Number(amountTicket)) {
@@ -38,8 +37,7 @@ function Seat(props) {
   const viewSeatSelected = (item) => {
     setListSeat((prevListSeat) => {
       const isAlreadySelected = prevListSeat.includes(item.name);
-
-      if (item.status == false) {
+      if (item.status === false) {
         return prevListSeat.filter((seat) => seat !== item.name);
       } else if (prevListSeat.length === Number(amountTicket)) {
         const newListSeat = prevListSeat.slice(1);
@@ -58,7 +56,7 @@ function Seat(props) {
       </div>
       <div className="seat">
         {seat?.map((item, index) => {
-          if (item.status == false) {
+          if (item.status === false) {
             return (
               <div
                 key={index}

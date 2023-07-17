@@ -35,8 +35,8 @@ export default function LoginPage(props) {
           return response.json();
         })
         .then(function (json) {
-          // console.log(json);
-          if (json.login === false) {
+          console.log(json);
+          if (!json.access_token) {
             alert("Email or pass not right");
           } else {
             // console.log(json.data[0]);
@@ -50,6 +50,7 @@ export default function LoginPage(props) {
       console.log("form not validate");
     }
   };
+
 
   const handleChange = (event) => {
     const { value, name } = event.target;

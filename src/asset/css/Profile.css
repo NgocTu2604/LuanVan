@@ -75,3 +75,10 @@
 .bill tr {
   background-color: #ffffff;
 }
+.profile-submit{
+  display: flex;
+  justify-content: center;
+}
+.profile-submit button{
+  margin: 10px;
+}

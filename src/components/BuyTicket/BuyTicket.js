@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../asset/css/BuyTicket.css";
 import { API } from "../../API";
+import MyContext from "../Store/Context";
 
 function BuyTicket(props) {
+  const {viewLogin, setViewLogin} = useContext(MyContext);
   const { setValues, movieChoiseinfo } = props;
+  const userData = JSON.parse(localStorage.getItem('user'));
   //CHỌN PHIM
-
   const [currentMovie, setCurrentMovie] = useState([]);
   const [choiceMovie, setChoiceMovie] = useState(
     movieChoiseinfo !== -1 ? movieChoiseinfo : null
@@ -22,41 +24,47 @@ function BuyTicket(props) {
   }, []);
 
   const handChangeMovie = (e) => {
+    console.log(e.target.value);
     setChoiceMovie(e.target.value);
-    getTheater(e.target.value);
+    getDay(e.target.value);
   };
 
   //CHỌN RẠP
-  const [theater, setTheater] = useState([]);
-  const [choiceTheater, setChoiceTheater] = useState([]);
+//   const [theater, setTheater] = useState([]);
+//   const [choiceTheater, setChoiceTheater] = useState([]);
 
-  const getTheater = async (choiceMovie) => {
-    const res = await fetch(`${API}calendar/gettheaterbymovie/${choiceMovie}`);
-    const getData = await res.json();
-    setTheater(getData.data);
-  };
+//   const getTheater = async (choiceMovie) => {
+//     const res = await fetch(`${API}calendar/gettheaterbymovie/${choiceMovie}`);
+//     const getData = await res.json();
+//     getDay();
+//   };
 
-  const handChangeTheater = (e) => {
-    setChoiceTheater(e.target.value);
-    console.log(e.target.value);
-    getDay(e.target.value);
-    // localStorage.removeItem("theater");
-  };
+//   const handChangeTheater = (e) => {
+//     setChoiceTheater(e.target.value);
+//     getDay(e.target.value);
+//   };
+
+useEffect(()=>{
+  // console.log(movieChoiseinfo);
+  if(movieChoiseinfo !== -1)
+  {
+      // console.log(123);
+      getDay(movieChoiseinfo);
+  }
+},[movieChoiseinfo])
 
   //CHỌN NGÀY
   const [day, setDay] = useState([]);
-  const [choiceDay, setChoiceDay] = useState([]);
+  const [choiceDay, setChoiceDay] = useState(null);
 
-  const getDay = async (choiceTheater) => {
-    console.log(choiceMovie);
-    console.log(movieChoiseinfo);
+  const getDay = async (idMovieChoise) => {
     const res = await fetch(
-      `${API}calendar/getcalendar/movie_id=${choiceMovie}&theater_id=${choiceTheater}`
+      `${API}calendar/getcalendar/movie_id=${idMovieChoise}&theater_id=1`
     );
     const getData = await res.json();
+    // console.log(getData.data);
     setDay(getData.data);
   };
-  console.log(day);
   const handChangeDay = (e) => {
     setChoiceDay(e.target.value);
     getSchedule(e.target.value);
@@ -65,11 +73,11 @@ function BuyTicket(props) {
   //CHỌN SUẤT
 
   const [schedule, setSchedule] = useState([]);
-  const [choiceSchedule, setChoiceSchedule] = useState([]);
+  const [choiceSchedule, setChoiceSchedule] = useState(null);
 
   const getSchedule = async (choiceDay) => {
     const res = await fetch(
-      `${API}calendar/gettime/theater_id=${choiceTheater}&calendar_id=${choiceDay}`
+      `${API}calendar/gettime/theater_id=1&calendar_id=${choiceDay}`
     );
     const getData = await res.json();
     setSchedule(getData.data);
@@ -82,30 +90,51 @@ function BuyTicket(props) {
   //Xác nhận mua vé
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const dayFull = day.filter((item) => item.id === choiceDay)[0].date;
-    const scheduleFull = schedule.filter(
+    // console.log(choiceMovie === null);
+    // console.log(choiceDay === null);
+    // console.log(choiceSchedule === null);
+    if(!userData)
+    {
+      alert('Vui long dang nhap de tiep tuc');
+      setViewLogin(true);
+    }
+    else if(choiceMovie === null || choiceDay === null || choiceSchedule === null)
+    {
+      alert("Vui lòng chọn đầy đủ thông tin mua vé")
+      return;
+    }
+    else{
+      event.preventDefault();
+    const dayFull = day?.filter((item) => item.id === choiceDay)[0].date;
+    const scheduleFull = schedule?.filter(
       (item) => item.id === choiceSchedule
     )[0].time_start;
-    const theaterFull = theater.filter((item) => item.id === choiceTheater)[0]
-      .theater_name;
+    // const theaterFull = theater.filter((item) => item.id === choiceTheater)[0].theater_name;
+
+    let movie;
+    if(movieChoiseinfo && movieChoiseinfo !== -1)
+    {
+        movie = movieChoiseinfo;
+    }
+    else {
+        movie = choiceMovie
+    }
 
     const newValues = {
-      choiceMovie: choiceMovie,
-      choiceTheater: theaterFull,
+      choiceMovie: movie,
+      choiceTheater: '',
       choiceDay: dayFull,
       choiceSchedule: scheduleFull,
-      idChoiceTheather: choiceTheater,
+      idChoiceTheather: 1,
       idChoiceSchedule: choiceSchedule,
       idChoiceDay: choiceDay,
     };
 
     setValues(newValues);
+    console.log(newValues);
     navigate("/ticket");
+    }
   };
-  const theaterLocal = JSON.parse(localStorage.getItem("theater"));
-  console.log(theater);
-  console.log(theater.length !== 0);
 
   return (
     <div
@@ -125,7 +154,7 @@ function BuyTicket(props) {
               </option>
               {currentMovie.map((movie, index) => {
                 if (movie.id === movieChoiseinfo) {
-                  return;
+                  return false;
                 }
                 return (
                   <option value={movie.id} key={index}>
@@ -147,10 +176,10 @@ function BuyTicket(props) {
             </select>
           )}
         </div>
-        <div className="buy-ticket-item">
+        {/* <div className="buy-ticket-item">
           <select className="item" onChange={handChangeTheater}>
             <option value="0">Chọn rạp</option>
-            {theater.length !== 0 ? (
+            {theater !== null && (
               <>
                 {theater?.map((theater, index) => {
                   return (
@@ -160,20 +189,9 @@ function BuyTicket(props) {
                   );
                 })}
               </>
-            ) : (
-              <>
-                {theaterLocal?.map((theater, index) => {
-                  console.log(theater);
-                  return (
-                    <option value={theater.id} key={index}>
-                      {theater.theater_name}
-                    </option>
-                  );
-                })}
-              </>
             )}
           </select>
-        </div>
+        </div> */}
         <div className="buy-ticket-item">
           <select className="item" onChange={handChangeDay}>
             <option value="0">Chọn ngày</option>

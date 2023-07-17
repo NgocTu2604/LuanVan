@@ -23,9 +23,10 @@ function Header(props) {
   const { viewLogin, setViewLogin } = props;
   const { viewRegister, setViewRegister } = props;
   const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
   //SEARCH
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState([]);
   const [resultEnter, setResultEnter] = useState(false);
 
   ///icon avatar
@@ -44,15 +45,18 @@ function Header(props) {
   const handleHome = (item) => {
     navigate("/");
   };
+  const handleProfile = (item) => {
+    navigate("/profile");
+  };
 
   return (
     <div className="header">
-      <div onClick={handleHome} className="header-logo">
+      <div onClick={handleHome} style={{userSelect:"none", cursor:"pointer"}} className="header-logo">
         NGOCTU
       </div>
       <div className="search-bar-container">
         <SearchBar setResults={setResults} setResultEnter={setResultEnter} />
-        <SearchResultsList results={results} resultEnter ={resultEnter}/>
+        <SearchResultsList results={results} resultEnter={resultEnter} />
       </div>
       {user ? (
         <div style={{ marginTop: "15px" }}>
@@ -113,9 +117,9 @@ function Header(props) {
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
               <MenuItem onClick={handleClose}>{user.name}</MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={handleProfile}>
                 {/* <Avatar />  */}
-                Profile
+                Thông tin cá nhân
               </MenuItem>
               <Divider />
 
@@ -129,7 +133,7 @@ function Header(props) {
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
-                Logout
+                Đăng xuất
               </MenuItem>
             </Menu>
           </React.Fragment>

@@ -27,10 +27,16 @@ import Carousel from "./Pages/Carousel";
 import CurrentMovie from "./components/Movies/CurrentMovie";
 import UpcomingMovie from "./components/Movies/UpcomingMovie";
 import Profile from "./User/Profile";
+import NotFound from "./Pages/NotFound";
+import InfoActor from "./components/News/InfoActor";
+import InfoDirector from "./components/News/InfoDirector";
+import MyContext from "./components/Store/Context";
 function App() {
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
   const [values, setValues] = useState({});
+  const [viewActor, setViewActor] = useState({});
+  const [viewDirector, setViewDirector] = useState({});
 
   const Layout = (children) => {
     return (
@@ -130,12 +136,42 @@ function App() {
         },{
           path: "/profile",
           element: <Profile />
+        },
+        {
+          path: "/showactor",
+          element: <ShowActor/>
+        },
+        {
+          path: "/infoactor",
+          element: <InfoActor/>
+        },
+        {
+          path: "/infodirector",
+          element: <InfoDirector/>
+        },
+        {
+          path: "/showdirector",
+          element: <ShowDirector/>
+        },
+        {
+          path: "/404",
+          element: <NotFound/>
         }
+
+
         
       ],
     },
   ]);
-  return <RouterProvider router={router} />;
+  const valueContext = {
+    viewLogin: viewLogin,
+    setViewLogin: setViewLogin
+  }
+  return (
+  <MyContext.Provider value={valueContext}>
+    <RouterProvider router={router} />
+  </MyContext.Provider>
+  );
 }
 
 export default App;

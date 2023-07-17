@@ -39,11 +39,11 @@ function ShowDirector(props) {
                 <div className="director-info-item">
                   <div className="director-info-content">
                     <div>
-                      <img className="img" src={item.img_avatar} alt=""></img>
+                      <img className="img" src={item.image} alt="" />
                     </div>
                     <div className="director-info">
-                      <h5>{item.name} </h5>
-                      <p>{item.description}</p>
+                      <h5>{item.full_name}</h5>
+                      <p>{item.story}</p>
                     </div>
                   </div>
                 </div>
