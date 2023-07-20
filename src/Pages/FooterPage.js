@@ -7,9 +7,7 @@ function FooterPage() {
         <ul className="footer-item">
           <h1>GIỚI THIỆU</h1>
           <li>VỀ CHÚNG TÔI</li>
-          <li>THỎA THUẬN SỬ DỤNG</li>
           <li>QUY CHẾ HOẠT ĐỘNG</li>
-          <li>CHÍNH SÁCH BẢO MẬT</li>
         </ul>
         <ul className="footer-item">
           <h1>GÓC ĐIỆN ẢNH</h1>

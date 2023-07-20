@@ -5,9 +5,9 @@ import { API } from "../../API";
 import MyContext from "../Store/Context";
 
 function BuyTicket(props) {
-  const {viewLogin, setViewLogin} = useContext(MyContext);
+  const { viewLogin, setViewLogin } = useContext(MyContext);
   const { setValues, movieChoiseinfo } = props;
-  const userData = JSON.parse(localStorage.getItem('user'));
+  const userData = JSON.parse(localStorage.getItem("user"));
   //CHỌN PHIM
   const [currentMovie, setCurrentMovie] = useState([]);
   const [choiceMovie, setChoiceMovie] = useState(
@@ -30,28 +30,27 @@ function BuyTicket(props) {
   };
 
   //CHỌN RẠP
-//   const [theater, setTheater] = useState([]);
-//   const [choiceTheater, setChoiceTheater] = useState([]);
+  //   const [theater, setTheater] = useState([]);
+  //   const [choiceTheater, setChoiceTheater] = useState([]);
 
-//   const getTheater = async (choiceMovie) => {
-//     const res = await fetch(`${API}calendar/gettheaterbymovie/${choiceMovie}`);
-//     const getData = await res.json();
-//     getDay();
-//   };
+  //   const getTheater = async (choiceMovie) => {
+  //     const res = await fetch(`${API}calendar/gettheaterbymovie/${choiceMovie}`);
+  //     const getData = await res.json();
+  //     getDay();
+  //   };
 
-//   const handChangeTheater = (e) => {
-//     setChoiceTheater(e.target.value);
-//     getDay(e.target.value);
-//   };
+  //   const handChangeTheater = (e) => {
+  //     setChoiceTheater(e.target.value);
+  //     getDay(e.target.value);
+  //   };
 
-useEffect(()=>{
-  // console.log(movieChoiseinfo);
-  if(movieChoiseinfo !== -1)
-  {
+  useEffect(() => {
+    // console.log(movieChoiseinfo);
+    if (movieChoiseinfo !== -1) {
       // console.log(123);
       getDay(movieChoiseinfo);
-  }
-},[movieChoiseinfo])
+    }
+  }, [movieChoiseinfo]);
 
   //CHỌN NGÀY
   const [day, setDay] = useState([]);
@@ -93,46 +92,44 @@ useEffect(()=>{
     // console.log(choiceMovie === null);
     // console.log(choiceDay === null);
     // console.log(choiceSchedule === null);
-    if(!userData)
-    {
-      alert('Vui long dang nhap de tiep tuc');
+    if (!userData) {
+      alert("Vui long dang nhap de tiep tuc");
       setViewLogin(true);
-    }
-    else if(choiceMovie === null || choiceDay === null || choiceSchedule === null)
-    {
-      alert("Vui lòng chọn đầy đủ thông tin mua vé")
+    } else if (
+      (choiceMovie === null && movieChoiseinfo === -1) ||
+      choiceDay === null ||
+      choiceSchedule === null
+    ) {
+      alert("Vui lòng chọn đầy đủ thông tin mua vé");
       return;
-    }
-    else{
+    } else {
       event.preventDefault();
-    const dayFull = day?.filter((item) => item.id === choiceDay)[0].date;
-    const scheduleFull = schedule?.filter(
-      (item) => item.id === choiceSchedule
-    )[0].time_start;
-    // const theaterFull = theater.filter((item) => item.id === choiceTheater)[0].theater_name;
+      const dayFull = day?.filter((item) => item.id === choiceDay)[0].date;
+      const scheduleFull = schedule?.filter(
+        (item) => item.id === choiceSchedule
+      )[0].time_start;
+      // const theaterFull = theater.filter((item) => item.id === choiceTheater)[0].theater_name;
 
-    let movie;
-    if(movieChoiseinfo && movieChoiseinfo !== -1)
-    {
+      let movie;
+      if (movieChoiseinfo && movieChoiseinfo !== -1) {
         movie = movieChoiseinfo;
-    }
-    else {
-        movie = choiceMovie
-    }
+      } else {
+        movie = choiceMovie;
+      }
 
-    const newValues = {
-      choiceMovie: movie,
-      choiceTheater: '',
-      choiceDay: dayFull,
-      choiceSchedule: scheduleFull,
-      idChoiceTheather: 1,
-      idChoiceSchedule: choiceSchedule,
-      idChoiceDay: choiceDay,
-    };
+      const newValues = {
+        choiceMovie: movie,
+        choiceTheater: "",
+        choiceDay: dayFull,
+        choiceSchedule: scheduleFull,
+        idChoiceTheather: 1,
+        idChoiceSchedule: choiceSchedule,
+        idChoiceDay: choiceDay,
+      };
 
-    setValues(newValues);
-    console.log(newValues);
-    navigate("/ticket");
+      setValues(newValues);
+      console.log(newValues);
+      navigate("/ticket");
     }
   };
 

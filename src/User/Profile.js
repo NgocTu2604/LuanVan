@@ -8,27 +8,62 @@ import {
   Paper,
   Collapse,
   FormControlLabel,
-  Fade 
+  Fade,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { API } from "../API";
 import { useParams } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 
 function Profile() {
   const userID = JSON.parse(localStorage.getItem("user")).id;
   const [value, setValue] = useState("one");
   const [user, setUser] = useState([]);
+  const [valueUpdate, setValueUpdate] = useState({
+    name: user.name || "",
+    phone: user.phone_number || "",
+    id_card: user.id_card_number || "",
+    email: "",
+  });
 
   useEffect(() => {
     const getUser = async () => {
       const res = await fetch(`${API}user/getuserbyid/${userID}`);
       const getData = await res.json();
+      setValueUpdate({
+        name: getData.data[0].name,
+        phone: getData.data[0].phone_number,
+        id_card: getData.data[0].id_card_number,
+        email: getData.data[0].email,
+      });
       setUser(getData.data[0]);
     };
     getUser();
   }, [userID]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    const values = {
+      name: valueUpdate.name,
+      id_card_number: valueUpdate.id_card,
+      phone_number: valueUpdate.phone,
+      email: valueUpdate.email
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    };
+    await fetch(`${API}updateProfile/${userID}`, requestOptions)
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          alert("Update profile success");
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   //hide pass
@@ -52,11 +87,18 @@ function Profile() {
   const handleChangePass = () => {
     setChecked((prev) => !prev);
   };
+  const handleChangeUpdate = (event) => {
+    const { value, name } = event.target;
+    setValueUpdate({
+      ...valueUpdate,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="profile-page">
       <div className="profile-form-container">
-        <Box sx={{ width: "100%", margin: "50px 0 0 0" }}>
+        <Box sx={{ width: "100%", margin: "10px 0 0 0" }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab value="one" label="THÔNG TIN THÀNH VIÊN" />
             <Tab value="two" label="LỊCH SỬ MUA VÉ" />
@@ -74,7 +116,9 @@ function Profile() {
                   id="user-name"
                   className="profile-form-control"
                   type="text"
-                  value={user.name}
+                  name="name"
+                  value={valueUpdate.name}
+                  onChange={handleChangeUpdate}
                 />
               </div>
               <div className="profile-item">
@@ -86,7 +130,8 @@ function Profile() {
                   className="profile-form-control"
                   type="text"
                   name="phone"
-                  value={user.phone_number}
+                  onChange={handleChangeUpdate}
+                  value={valueUpdate.phone}
                 />
               </div>
               <div className="profile-item">
@@ -97,7 +142,9 @@ function Profile() {
                   id="CCCD"
                   className="profile-form-control"
                   type="text"
-                  name="CCCD"
+                  name="id_card"
+                  onChange={handleChangeUpdate}
+                  value={valueUpdate.id_card}
                 />
               </div>
 
@@ -116,7 +163,9 @@ function Profile() {
               </div>
 
               <FormControlLabel
-                control={<Switch checked={checked} onChange={handleChangePass} />}
+                control={
+                  <Switch checked={checked} onChange={handleChangePass} />
+                }
                 label="Đổi mật khẩu"
               />
               <Box
@@ -133,7 +182,7 @@ function Profile() {
                   <Collapse in={checked}>
                     <div className="profile-item">
                       <label htmlFor="CCCD" className="profile-form-label">
-                        Mật khẩu cũ
+                        Mật khẩu hiện tại
                       </label>
                       <input
                         id="CCCD"
@@ -153,16 +202,20 @@ function Profile() {
                         name="CCCD"
                       />
                     </div>
-                    <div className="profile-submit">
-                      <button type="submit" className="">
-                        Cập nhật
+                    <div className="profile-change">
+                      <button type="submit" className="btn-change">
+                        Thay đổi
                       </button>
                     </div>
                   </Collapse>
                 </div>
               </Box>
               <div className="profile-submit">
-                <button type="submit" className="">
+                <button
+                  onClick={handleUpdate}
+                  type="submit"
+                  className="btn-update"
+                >
                   Cập nhật
                 </button>
               </div>

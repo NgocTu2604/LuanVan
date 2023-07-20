@@ -13,6 +13,7 @@ function InfoBuyTicket(props) {
     confirm,
     total,
     amountTicket,
+    amountChildrenTicket
   } = props;
   console.log(values);
   const [movie, setMovie] = useState([]);
@@ -144,7 +145,7 @@ function InfoBuyTicket(props) {
             ) : (
               <button
                 onClick={() => {
-                  if (amountTicket !== 0) {
+                  if (amountTicket !== 0 && amountChildrenTicket !=0) {
                     setShowSeat(true);
                     setShowBack(true);
                   }

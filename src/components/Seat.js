@@ -8,7 +8,7 @@ function Seat(props) {
   const [seat, setSeat] = useState([]);
   const param = useParams();
 
-  const { values, amountTicket, listSeat, setListSeat } = props;
+  const { values, amountTicket, amountChildrenTicket , listSeat, setListSeat } = props;
 
   useEffect(() => {
     const getSeat = async () => {
@@ -25,7 +25,7 @@ function Seat(props) {
       const isAlreadySelected = prevListSeat.includes(item.id);
       if (isAlreadySelected) {
         return prevListSeat.filter((seat) => seat !== item.id);
-      } else if (prevListSeat.length === Number(amountTicket)) {
+      } else if (prevListSeat.length === Number(amountTicket + amountChildrenTicket)) {
         const newListSeat = prevListSeat.slice(1);
         newListSeat.push(item.id);
         return newListSeat;
@@ -39,7 +39,7 @@ function Seat(props) {
       const isAlreadySelected = prevListSeat.includes(item.name);
       if (item.status === false) {
         return prevListSeat.filter((seat) => seat !== item.name);
-      } else if (prevListSeat.length === Number(amountTicket)) {
+      } else if (prevListSeat.length === Number(amountTicket + amountChildrenTicket)) {
         const newListSeat = prevListSeat.slice(1);
         newListSeat.push(item.name);
         return newListSeat;

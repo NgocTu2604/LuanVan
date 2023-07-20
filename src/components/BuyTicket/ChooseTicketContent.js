@@ -5,7 +5,14 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function ChooseTicketContent(props) {
   const [ticket, setTicket] = useState([]);
-  const { setAmountTicket, amountTicket, setTotal } = props;
+  const {
+    setAmountTicket,
+    amountTicket,
+    setTotal,
+    setAmountChildrenTicket,
+    amountChildrenTicket,
+  } = props;
+  console.log(amountChildrenTicket, setAmountChildrenTicket);
   const [price, setPrice] = useState([]);
   const navigate = useNavigate();
   const param = useParams();
@@ -19,34 +26,6 @@ function ChooseTicketContent(props) {
     getTicket();
   }, [param.id]);
 
-  const [showAlert, setShowAlert] = useState(true);
-
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      // event.preventDefault();
-      // Hiển thị hộp thoại cảnh báo trước khi reload
-      setShowAlert(true);
-      event.returnValue = ''; // Một số trình duyệt yêu cầu gán giá trị vào event.returnValue
-    };
-
-
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
-  
-  const handleReturn = () => {
-    setShowAlert(false);
-  };
-  
-  const handleNavigate = () => {
-    setShowAlert(false);
-    navigate('/'); // Điều hướng đến trang /home
-  };
-
   useEffect(() => {
     const getPrice = async () => {
       const res = await fetch(`${API}ticket/price`);
@@ -59,13 +38,6 @@ function ChooseTicketContent(props) {
 
   return (
     <div className="wrap-booking-ticket">
-      {showAlert && (
-        <div className="alert-box">
-          <p>Bạn có muốn reload trang?</p>
-          <button onClick={handleNavigate}>Yes</button>
-          <button onClick={handleReturn}>No</button>
-        </div>
-      )}
       <div className="booking-ticket-content">
         <h2>CHỌN VÉ</h2>
         <div className="booking-ticket">
@@ -76,7 +48,7 @@ function ChooseTicketContent(props) {
             <th>Tổng (VNĐ)</th>
           </tr>
           <tr>
-            <td>Vé</td>
+            <td>Vé thường</td>
             <td>
               <i
                 onClick={() => {
@@ -103,20 +75,20 @@ function ChooseTicketContent(props) {
                 className="fa-solid fa-circle-plus"
               ></i>
             </td>
-             {
-                <>
-                  <td>70000</td>
-                  <td>{Number(70000) * amountTicket}</td>
-                </>
-          }
+            {
+              <>
+                <td>70000</td>
+                <td>{Number(70000) * amountTicket}</td>
+              </>
+            }
           </tr>
           <tr>
-            <td>Vé tre em</td>
+            <td>Vé trẻ em</td>
             <td>
               <i
                 onClick={() => {
-                  if (amountTicket > 1) {
-                    setAmountTicket(amountTicket - 1);
+                  if (amountChildrenTicket > 1) {
+                    setAmountChildrenTicket(amountChildrenTicket - 1);
                   }
                 }}
                 className="fa-solid fa-circle-minus"
@@ -124,35 +96,36 @@ function ChooseTicketContent(props) {
               {/* change */}
               <input
                 className="input"
-                onChange={(e) => setAmountTicket(e.target.value)}
-                value={amountTicket}
+                onChange={(e) => setAmountChildrenTicket(e.target.value)}
+                value={amountChildrenTicket}
                 type="number"
                 disabled={true}
               ></input>
               <i
                 onClick={() => {
-                  if (amountTicket < 5) {
-                    setAmountTicket(amountTicket + 1);
+                  if (amountChildrenTicket < 5) {
+                    setAmountChildrenTicket(amountChildrenTicket + 1);
                   }
                 }}
                 className="fa-solid fa-circle-plus"
               ></i>
             </td>
-            {price?.map((item, index) => {
-              total = Number(item.price) * amountTicket;
-              setTotal(total);
-              return (
-                <>
-                  <td>{item.price}</td>
-                  <td>{Number(item.price) * amountTicket}</td>
-                </>
-              );
-            })}
+            {
+              <>
+                <td>30000</td>
+                <td>{Number(30000) * amountChildrenTicket}</td>
+              </>
+            }
           </tr>
 
           <tr>
             <td colSpan={3}>Tổng</td>
-            <td>{total}</td>
+            <td>
+              {setTotal(
+                Number(30000) * amountChildrenTicket +
+                  Number(70000) * amountTicket
+              )}
+            </td>
           </tr>
         </div>
       </div>

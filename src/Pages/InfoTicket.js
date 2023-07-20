@@ -11,8 +11,8 @@ function InfoTicket() {
         </tr>
         <tr className="mr5">
           <td className="mh5">Tất cả các ngày trong tuần</td>
-          <td className="mh5">75.000 VNĐ</td>
-          <td className="mh5">75.000 VNĐ</td>
+          <td className="mh5">70.000 VNĐ</td>
+          <td className="mh5">30.000 VNĐ</td>
         </tr>
       </table>
     </div>

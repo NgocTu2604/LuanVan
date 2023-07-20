@@ -29,7 +29,6 @@ function ShowDirector(props) {
         <div>
           <h3>ĐẠO DIỄN</h3>
         </div>
-
         <div className="wrap-director">
           {director.data === undefined ? (
             <></>
@@ -43,7 +42,7 @@ function ShowDirector(props) {
                     </div>
                     <div className="director-info">
                       <h5>{item.full_name}</h5>
-                      <p>{item.story}</p>
+                      <p style={{ width: "50%" }}>{item.story}</p>
                     </div>
                   </div>
                 </div>

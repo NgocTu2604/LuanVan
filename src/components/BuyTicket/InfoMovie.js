@@ -10,15 +10,18 @@ import "../../asset/css/InfoMovie.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import moment from "moment/moment";
 import BuyTicket from "./BuyTicket";
 import { API } from "../../API";
 import HoverRating from "../Movies/HoverRating";
+import AppModal from "./AppModal";
+import ModalContent from "./ModalContent";
+import moment from "moment/moment";
 
 function InfoMovie(props) {
   const [info, setInfo] = useState([]);
   const [infoActor, setInfoActor] = useState([]);
   const [genre, setGenre] = useState([]);
+  // const movieID
   const param = useParams();
   // console.log(param.id);
   const { setValues } = props;
@@ -29,7 +32,7 @@ function InfoMovie(props) {
       const getData = await res.json();
       setInfo(getData.data[0]);
       setMovieChoiseinfo(param.id);
-      console.log(getData);
+      
     };
     getInfo();
   }, [param.id]);
@@ -62,7 +65,10 @@ function InfoMovie(props) {
           <img className="image" src={info?.poster} alt=""></img>
           <div className="middle">
             <div className="play">
-              <i className="fa-solid fa-circle-play"></i>
+              <AppModal url={info?.trailer}>
+                
+                <i className="fa-solid fa-circle-play"></i>
+              </AppModal>
             </div>
           </div>
         </div>

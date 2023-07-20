@@ -76,9 +76,14 @@
   background-color: #ffffff;
 }
 .profile-submit{
+  margin-top: 50px;
   display: flex;
   justify-content: center;
 }
-.profile-submit button{
+.profile-change{
+  display: flex;
+  justify-content: center;
+}
+.btn-update{
   margin: 10px;
 }

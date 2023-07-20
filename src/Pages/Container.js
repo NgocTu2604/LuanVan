@@ -15,8 +15,7 @@ function Container(props) {
     const getMovie = async () => {
       const res = await fetch(`${API}movie/getbystatus/1`);
       const getData = await res.json();
-      setCurrentMovie(getData);
-      // console.log(getData);
+      setCurrentMovie(getData || []);
     };
     getMovie();
   }, []);
@@ -25,7 +24,7 @@ function Container(props) {
     const getMovie = async () => {
       const res = await fetch(`${API}movie/getbystatus/2`);
       const getData = await res.json();
-      setUpcomingMovie(getData);
+      setUpcomingMovie(getData || []);
       // console.log(getData);
     };
     getMovie();
@@ -62,7 +61,7 @@ function Container(props) {
           {currentMovie.data === undefined ? (
             <></>
           ) : (
-            currentMovie.data.map((item, index) => {
+            currentMovie?.data?.map((item, index) => {
               if (index < 6) {
                 return (
                   <div key={index} className="content-item">
@@ -89,7 +88,7 @@ function Container(props) {
           {upcomingMovie.data === undefined ? (
             <></>
           ) : (
-            upcomingMovie.data.map((item, index) => {
+            upcomingMovie?.data?.map((item, index) => {
               if (index < 6) {
                 return (
                   <div key={index} className="content-item">
