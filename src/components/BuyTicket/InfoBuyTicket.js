@@ -6,7 +6,7 @@ function InfoBuyTicket(props) {
     setShowSeat,
     setShowBack,
     showBack,
-    values,
+    // values,
     listSeat,
     setListSeat,
     setConfirm,
@@ -15,6 +15,7 @@ function InfoBuyTicket(props) {
     amountTicket,
     amountChildrenTicket
   } = props;
+  const values = JSON.parse(localStorage.getItem("bookTickettTemp"));
   console.log(values);
   const [movie, setMovie] = useState([]);
   const userData = JSON.parse(localStorage.getItem("user"));
@@ -61,10 +62,10 @@ function InfoBuyTicket(props) {
   const handleAddTicket = async (id) => {
     listSeat.map(async(item)=>{
       const value = {
-        ticket_type_id: 1,
-        movie_price_id: 1,
-        seat_id: item,
+        // movie_price_id: 1,
         // room_id:1,
+        ticket_type_id: 1,
+        seat_id: item,
         schedule_id: Number(values.idChoiceSchedule),
         calendars_id: Number(values.idChoiceDay),
         bill_id: id,
@@ -87,6 +88,7 @@ function InfoBuyTicket(props) {
     })
     
   };
+  console.log(amountChildrenTicket, amountTicket);
 
   return (
     <div className="wrap-ticket">
@@ -145,7 +147,7 @@ function InfoBuyTicket(props) {
             ) : (
               <button
                 onClick={() => {
-                  if (amountTicket !== 0 && amountChildrenTicket !=0) {
+                  if (amountTicket !== 0 || amountChildrenTicket !==0) {
                     setShowSeat(true);
                     setShowBack(true);
                   }

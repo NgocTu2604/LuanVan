@@ -126,6 +126,7 @@ function BuyTicket(props) {
         idChoiceSchedule: choiceSchedule,
         idChoiceDay: choiceDay,
       };
+      localStorage.setItem("bookTickettTemp", JSON.stringify(newValues));
 
       setValues(newValues);
       console.log(newValues);
@@ -173,22 +174,7 @@ function BuyTicket(props) {
             </select>
           )}
         </div>
-        {/* <div className="buy-ticket-item">
-          <select className="item" onChange={handChangeTheater}>
-            <option value="0">Chọn rạp</option>
-            {theater !== null && (
-              <>
-                {theater?.map((theater, index) => {
-                  return (
-                    <option value={theater.id} key={index}>
-                      {theater.theater_name}
-                    </option>
-                  );
-                })}
-              </>
-            )}
-          </select>
-        </div> */}
+
         <div className="buy-ticket-item">
           <select className="item" onChange={handChangeDay}>
             <option value="0">Chọn ngày</option>
@@ -228,7 +214,7 @@ function BuyTicket(props) {
       </div>
       <div className="submit">
         <button onClick={handleSubmit} className="btn-buy">
-          Mua
+          Muaâ
         </button>
       </div>
     </div>

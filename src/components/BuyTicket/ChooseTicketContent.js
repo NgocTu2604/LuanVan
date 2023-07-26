@@ -14,9 +14,11 @@ function ChooseTicketContent(props) {
   } = props;
   console.log(amountChildrenTicket, setAmountChildrenTicket);
   const [price, setPrice] = useState([]);
+  let moneyChild = 0;
+  let moneyNormal = 0;
   const navigate = useNavigate();
   const param = useParams();
-  let total = 0;
+
   useEffect(() => {
     const getTicket = async () => {
       const res = await fetch(`${API}room/getSeatByRoom/${param.id}`);
@@ -28,7 +30,7 @@ function ChooseTicketContent(props) {
 
   useEffect(() => {
     const getPrice = async () => {
-      const res = await fetch(`${API}ticket/price`);
+      const res = await fetch(`${API}ticket/gettickettype`);
       const getData = await res.json();
       console.log(getData.data);
       setPrice(getData.data);
@@ -47,83 +49,81 @@ function ChooseTicketContent(props) {
             <th>Giá (VNĐ)</th>
             <th>Tổng (VNĐ)</th>
           </tr>
-          <tr>
-            <td>Vé thường</td>
-            <td>
-              <i
-                onClick={() => {
-                  if (amountTicket > 1) {
-                    setAmountTicket(amountTicket - 1);
-                  }
-                }}
-                className="fa-solid fa-circle-minus"
-              ></i>
-              {/* change */}
-              <input
-                className="input"
-                onChange={(e) => setAmountTicket(e.target.value)}
-                value={amountTicket}
-                type="number"
-                disabled={true}
-              ></input>
-              <i
-                onClick={() => {
-                  if (amountTicket < 5) {
-                    setAmountTicket(amountTicket + 1);
-                  }
-                }}
-                className="fa-solid fa-circle-plus"
-              ></i>
-            </td>
-            {
-              <>
-                <td>70000</td>
-                <td>{Number(70000) * amountTicket}</td>
-              </>
+          {price.map((item, index) => {
+            if (item.type === "Trẻ em") {
+              moneyChild = item.prices;
+            } else if (item.type === "Vé bình thường") {
+              moneyNormal = item.prices;
             }
-          </tr>
-          <tr>
-            <td>Vé trẻ em</td>
-            <td>
-              <i
-                onClick={() => {
-                  if (amountChildrenTicket > 1) {
-                    setAmountChildrenTicket(amountChildrenTicket - 1);
-                  }
-                }}
-                className="fa-solid fa-circle-minus"
-              ></i>
-              {/* change */}
-              <input
-                className="input"
-                onChange={(e) => setAmountChildrenTicket(e.target.value)}
-                value={amountChildrenTicket}
-                type="number"
-                disabled={true}
-              ></input>
-              <i
-                onClick={() => {
-                  if (amountChildrenTicket < 5) {
-                    setAmountChildrenTicket(amountChildrenTicket + 1);
-                  }
-                }}
-                className="fa-solid fa-circle-plus"
-              ></i>
-            </td>
-            {
-              <>
-                <td>30000</td>
-                <td>{Number(30000) * amountChildrenTicket}</td>
-              </>
-            }
-          </tr>
+            return (
+              <tr>
+                <td>{item.description}</td>
+                <td>
+                  <i
+                    onClick={() => {
+                      if (item.type === "Trẻ em" && amountChildrenTicket > 1) {
+                        setAmountChildrenTicket(amountChildrenTicket - 1);
+                      }
+                      if (item.type === "Vé bình thường" && amountTicket > 1) {
+                        setAmountTicket(amountTicket - 1);
+                      }
+                    }}
+                    className="fa-solid fa-circle-minus"
+                  ></i>
+                  {/* change */}
+                  <input
+                    className="input"
+                    onChange={(e) => {
+                      if (item.type === "Trẻ em")
+                        setAmountChildrenTicket(e.target.value);
+                      else if (item.type === "Vé bình thường")
+                        setAmountTicket(e.target.value);
+                    }}
+                    value={
+                      item.type === "Trẻ em"
+                        ? amountChildrenTicket
+                        : amountTicket
+                    }
+                    type="number"
+                    disabled={true}
+                  ></input>
+                  <i
+                    onClick={() => {
+                      if (item.type === "Trẻ em" && amountChildrenTicket < 5) {
+                        setAmountChildrenTicket(amountChildrenTicket + 1);
+                      }
+                      if (item.type === "Vé bình thường" && amountTicket < 5) {
+                        setAmountTicket(amountTicket + 1);
+                      }
+                    }}
+                    className="fa-solid fa-circle-plus"
+                  ></i>
+                </td>
+                {
+                  <>
+                    <td>{item.prices}</td>
+                    <td>
+                      {item.prices *
+                        (item.type === "Trẻ em"
+                          ? amountChildrenTicket
+                          : item.type === "Vé bình thường"
+                          ? amountTicket
+                          : 0)}
+                    </td>
+                  </>
+                }
+              </tr>
+            );
+          })}
 
           <tr>
             <td colSpan={3}>Tổng</td>
             <td>
+              {Number(moneyChild) * amountChildrenTicket +
+                Number(moneyNormal) * amountTicket}
               {setTotal(
-                Number(30000) * amountChildrenTicket +
-                  Number(70000) * amountTicket
+                Number(moneyChild) * amountChildrenTicket +
+                  Number(moneyNormal) * amountTicket
               )}
             </td>
           </tr>

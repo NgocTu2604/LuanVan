@@ -32,7 +32,6 @@ function InfoMovie(props) {
       const getData = await res.json();
       setInfo(getData.data[0]);
       setMovieChoiseinfo(param.id);
-      
     };
     getInfo();
   }, [param.id]);
@@ -66,7 +65,6 @@ function InfoMovie(props) {
           <div className="middle">
             <div className="play">
               <AppModal url={info?.trailer}>
-                
                 <i className="fa-solid fa-circle-play"></i>
               </AppModal>
             </div>
@@ -104,11 +102,13 @@ function InfoMovie(props) {
             </>
           </div>
           <div>Ngày khởi chiếu: {info?.release_date}</div>
-          <div></div>
-          <div>
-            Đánh giá: <HoverRating />
-          </div>
-          <div>Tổng sao:</div>
+          {info.movie_status_id=== "1" ? <div>
+
+            <div>
+              Đánh giá: <HoverRating />
+            </div>
+            <div>Tổng sao:</div>
+          </div>: <></>}
         </div>
       </div>
       <div className="info-content-movie">

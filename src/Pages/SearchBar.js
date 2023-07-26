@@ -32,7 +32,7 @@ export const SearchBar = ({ setResults, setResultEnter }) => {
     <div className="input-wrapper">
       <i className="fa-solid fa-magnifying-glass"></i>
       <input
-        placeholder="Tìm kiếm phim/Tác giả"
+        placeholder="Tìm kiếm phim"
         value={input}
         onChange={(e) => handleChange(e.target.value)}
         onKeyDown={handleSearch}

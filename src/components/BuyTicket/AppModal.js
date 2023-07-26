@@ -14,8 +14,9 @@ const AppModal = ({ children, url }) => {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simpel-modal-description"
-      >
-        <ModalContent url={url}/>
+      >        
+        <ModalContent onClose ={handleClose} url={url}/>
+        
       </Modal>
     </div>
   );

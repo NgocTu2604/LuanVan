@@ -40,6 +40,7 @@ function Header(props) {
   };
   const handleLogout = () => {
     localStorage.removeItem("user");
+    navigate('/')
   };
   ///
   const handleHome = (item) => {

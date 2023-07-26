@@ -8,8 +8,8 @@ function Seat(props) {
   const [seat, setSeat] = useState([]);
   const param = useParams();
 
-  const { values, amountTicket, amountChildrenTicket , listSeat, setListSeat } = props;
-
+  const { amountTicket, amountChildrenTicket , listSeat, setListSeat } = props;
+  const values = JSON.parse(localStorage.getItem("bookTickettTemp"));
   useEffect(() => {
     const getSeat = async () => {
       const res = await fetch(

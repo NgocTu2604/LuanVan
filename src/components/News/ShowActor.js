@@ -44,7 +44,7 @@ function ShowActor(props) {
                   <div className="actor-info-content">
                     <div>
                       <img
-                        onClick={() => handleViewDetail(item)}
+                        // onClick={() => handleViewDetail(item)}
                         className="img"
                         src={item.image}
                         alt=""
