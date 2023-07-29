@@ -31,6 +31,8 @@ import NotFound from "./Pages/NotFound";
 import InfoActor from "./components/News/InfoActor";
 import InfoDirector from "./components/News/InfoDirector";
 import MyContext from "./components/Store/Context";
+import Contact from "./Pages/Contact";
+import BillDetail from "./User/BillDetail";
 function App() {
   const [viewRegister, setViewRegister] = useState(false);
   const [viewLogin, setViewLogin] = useState(false);
@@ -127,50 +129,55 @@ function App() {
         },
         {
           path: "/current",
-          element: <CurrentMovie/>
-        }
-        ,
+          element: <CurrentMovie />,
+        },
         {
           path: "/upcoming",
-          element: <UpcomingMovie/>
-        },{
+          element: <UpcomingMovie />,
+        },
+        {
           path: "/profile",
-          element: <Profile />
+          element: <Profile />,
         },
         {
           path: "/showactor",
-          element: <ShowActor/>
+          element: <ShowActor />,
         },
         {
           path: "/infoactor",
-          element: <InfoActor/>
+          element: <InfoActor />,
         },
         {
           path: "/infodirector",
-          element: <InfoDirector/>
+          element: <InfoDirector />,
         },
         {
           path: "/showdirector",
-          element: <ShowDirector/>
+          element: <ShowDirector />,
         },
         {
           path: "/404",
-          element: <NotFound/>
+          element: <NotFound />,
+        },
+        {
+          path: "/contact",
+          element: <Contact/>
+        },
+        {
+          path: "/billdetail/:id",
+          element: <BillDetail/>
         }
-
-
-        
       ],
     },
   ]);
   const valueContext = {
     viewLogin: viewLogin,
-    setViewLogin: setViewLogin
-  }
+    setViewLogin: setViewLogin,
+  };
   return (
-  <MyContext.Provider value={valueContext}>
-    <RouterProvider router={router} />
-  </MyContext.Provider>
+    <MyContext.Provider value={valueContext}>
+      <RouterProvider router={router} />
+    </MyContext.Provider>
   );
 }
 

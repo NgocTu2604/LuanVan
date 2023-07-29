@@ -1,0 +1,25 @@
+.wrap-contact-item {
+  text-align: center;
+  background-color: bisque;
+  font-size: 30px;
+  height: 400px;
+  color: #ffffff;
+  width: 100%;
+  
+}
+.item{
+   width: 90%; 
+}
+.item-head {
+  padding-top: 30px;
+  font-weight: normal;
+  font-size: 45px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 50px;
+}
+.wrap-contact-item a {
+  text-decoration: none;
+  color: orange;
+}

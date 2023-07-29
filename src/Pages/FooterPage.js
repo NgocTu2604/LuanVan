@@ -23,7 +23,7 @@ function FooterPage() {
         </ul>
         <ul className="footer-item">
           <h1>KẾT NỐI RẠP CHIẾU PHIM</h1>
-          <div >
+          {/* <div >
             <li style={{display: 'inline'}}>
               <i class="fa-brands fa-facebook"></i>
             </li>
@@ -32,7 +32,7 @@ function FooterPage() {
             </li>
           </div>
           <li>DOWLOAD APP</li>
-          <li>LOGO</li>
+          <li>LOGO</li> */}
         </ul>
       </div>
     </div>

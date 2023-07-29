@@ -25,7 +25,7 @@ function Container(props) {
       const res = await fetch(`${API}movie/getbystatus/2`);
       const getData = await res.json();
       setUpcomingMovie(getData || []);
-      // console.log(getData);
+       console.log(getData);
     };
     getMovie();
   }, []);

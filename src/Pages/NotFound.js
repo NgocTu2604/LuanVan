@@ -6,7 +6,7 @@ import "../asset/css/NotFound.css"
 const NotFound = () => (
     <div className="not-found">
       <img
-        src="https://www.pngitem.com/pimgs/m/561-5616833_image-not-found-png-not-found-404-png.png"
+        src="https://res.cloudinary.com/dia5z4i6s/image/upload/v1690345335/movie/nc47w54qzytnesbyvnp4.png"
         alt="not-found"
       />
       <Link to="/" className="link-home">

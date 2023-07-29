@@ -20,6 +20,8 @@ const isEmailValid = (email) => {
 export default function RegisterPage(props) {
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
+  const { setViewRegister, setViewLogin } = props;
+
   // const {setViewLogin, setViewRegister} = props
   // console.log(setViewLogin, setViewLogin);
 
@@ -185,9 +187,9 @@ export default function RegisterPage(props) {
             Đăng ký
           </button>
         </form>
-        {/* <p onClick={()=>{setViewLogin(true); setViewRegister(false)}}>
+        <p onClick={()=>{setViewLogin(true); setViewRegister(false)}}>
            Đã có tài khoản ? Nhấn để đăng nhập
-        </p> */}
+        </p>
       </div>
     </div>
   );

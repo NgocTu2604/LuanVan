@@ -61,10 +61,10 @@ function ChooseTicketContent(props) {
                 <td>
                   <i
                     onClick={() => {
-                      if (item.type === "Trẻ em" && amountChildrenTicket > 1) {
+                      if (item.type === "Trẻ em" && amountChildrenTicket > 0) {
                         setAmountChildrenTicket(amountChildrenTicket - 1);
                       }
-                      if (item.type === "Vé bình thường" && amountTicket > 1) {
+                      if (item.type === "Vé bình thường" && amountTicket > 0) {
                         setAmountTicket(amountTicket - 1);
                       }
                     }}

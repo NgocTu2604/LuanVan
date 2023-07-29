@@ -141,8 +141,8 @@ function Header(props) {
         </div>
       ) : (
         <div className="header-login">
-          <p onClick={() => setViewLogin(!viewLogin)}>Đăng nhập</p>
-          <p onClick={() => setViewRegister(!viewRegister)}>Đăng ký</p>
+          <p style={{userSelect: "none", cursor: "pointer"}} onClick={() => setViewLogin(!viewLogin)}>Đăng nhập</p>
+          <p style={{userSelect: "none", cursor: "pointer"}} onClick={() => setViewRegister(!viewRegister)}>Đăng ký</p>
         </div>
       )}
     </div>

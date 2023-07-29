@@ -8,7 +8,7 @@ import {
   Paper,
   Collapse,
   FormControlLabel,
-  Fade,
+  // Fade,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { API } from "../API";
@@ -19,6 +19,11 @@ function Profile() {
   const userID = JSON.parse(localStorage.getItem("user")).id;
   const [value, setValue] = useState("one");
   const [user, setUser] = useState([]);
+  const [bill, setBill] = useState([]);
+  const navigate = useNavigate();
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+
   const [valueUpdate, setValueUpdate] = useState({
     name: user.name || "",
     phone: user.phone_number || "",
@@ -40,6 +45,17 @@ function Profile() {
     };
     getUser();
   }, [userID]);
+
+  useEffect(() => {
+    const getBill = async () => {
+      const res = await fetch(`${API}bill/getbillbyuser/${userID}`);
+      const getData = await res.json();
+      setBill(getData.data);
+    };
+    getBill();
+  }, [userID]);
+  // console.log(userID);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -49,14 +65,14 @@ function Profile() {
       name: valueUpdate.name,
       id_card_number: valueUpdate.id_card,
       phone_number: valueUpdate.phone,
-      email: valueUpdate.email
+      email: valueUpdate.email,
     };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     };
-    await fetch(`${API}updateProfile/${userID}`, requestOptions)
+    await fetch(`${API}user/updateProfile/${userID}`, requestOptions)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
@@ -94,6 +110,33 @@ function Profile() {
       [name]: value,
     });
   };
+  const handleDetail = (id) => {
+    navigate(`/billdetail/${id}`);
+  };
+
+ 
+  const handleUpdatePass = async(e)=>{
+    e.preventDefault();
+    const value = {
+      password: oldPass ,
+      new_password: newPass,
+      password_confirmation: newPass
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(value),
+    };
+    await fetch(`${API}user/changepassword/${userID}`, requestOptions)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          alert("TC");
+        }
+      })
+      .catch((error) => console.log(error));
+  }
 
   return (
     <div className="profile-page">
@@ -113,6 +156,7 @@ function Profile() {
                   Họ & Tên
                 </label>
                 <input
+                  disabled="true"
                   id="user-name"
                   className="profile-form-control"
                   type="text"
@@ -189,6 +233,8 @@ function Profile() {
                         className="profile-form-control"
                         type="text"
                         name="CCCD"
+                        value={oldPass}
+                        onChange={(e)=>setOldPass(e.target.value)}
                       />
                     </div>
                     <div className="profile-item">
@@ -200,10 +246,12 @@ function Profile() {
                         className="profile-form-control"
                         type="text"
                         name="CCCD"
+                        value={newPass}
+                        onChange={(e)=>setNewPass(e.target.value)}
                       />
                     </div>
                     <div className="profile-change">
-                      <button type="submit" className="btn-change">
+                      <button onClick={handleUpdatePass} type="submit" className="btn-change">
                         Thay đổi
                       </button>
                     </div>
@@ -228,17 +276,31 @@ function Profile() {
               <div className="bill-content">
                 <div className="bill">
                   <tr>
-                    <th>Loại vé</th>
-                    <th>Số lượng mua</th>
-                    <th>Giá (VNĐ)</th>
-                    <th>Tổng (VNĐ)</th>
+                    <th>Hình thức thanh toán</th>
+                    <th>Ngày</th>
+                    <th>Trạng thái thanh toán</th>
+                    <th>Tổng tiền(VNĐ)</th>
+                    <th>Thao tác</th>
                   </tr>
-                  <tr>
-                    <td>Tổng</td>
-                    <td>Tổng</td>
-                    <td>Tổng</td>
-                    <td>Tổng</td>
-                  </tr>
+                  {bill?.map((item, index) => {
+                    return (
+                      <tr>
+                        <td style={{ textAlign: "center" }}>{item.pay_mode}</td>
+                        <td style={{ textAlign: "center" }}>
+                          {item.created_at}
+                        </td>
+                        <td style={{ textAlign: "center" }}>{item.name}</td>
+                        <td style={{ textAlign: "center" }}>
+                          {item.total_price}
+                        </td>
+                        <td>
+                          <button onClick={() => handleDetail(item.id)}>
+                            Xem chi tiết
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </div>
               </div>
             </div>

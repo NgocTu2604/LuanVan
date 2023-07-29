@@ -12,24 +12,34 @@ function InfoBuyTicket(props) {
     setConfirm,
     confirm,
     total,
-    amountTicket,
-    amountChildrenTicket
+    listNameSeat,
+    setResBuyTicket,
   } = props;
+  let { amountTicket, amountChildrenTicket } = props;
   const values = JSON.parse(localStorage.getItem("bookTickettTemp"));
-  console.log(values);
+  // console.log(values);
   const [movie, setMovie] = useState([]);
+  const [seatName, setSeatName] = useState([]);
+
   const userData = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const getMovie = async () => {
       const res = await fetch(`${API}movie/info/${values.choiceMovie}`);
       const getData = await res.json();
-      console.log();
       setMovie(getData.data[0]);
-      // console.log(getData.data);
     };
     getMovie();
   }, [values.choiceMovie]);
+
+  const getSeatName = async (id) => {
+    console.log(id);
+    const res = await fetch(`${API}room/getseatname/seat_id=${id}`);
+    const getData = await res.json();
+    console.log(getData);
+    return getData.data[0];
+    setSeatName(getData.data[0]);
+  };
 
   const handleAddBill = async () => {
     const values = {
@@ -53,42 +63,49 @@ function InfoBuyTicket(props) {
         return response.json();
       })
       .then((response) => {
-        console.log(response.data.id);
+        setResBuyTicket(response);
         handleAddTicket(response.data.id);
       })
       .catch((error) => console.log(error));
   };
-  // console.log(listSeat);
   const handleAddTicket = async (id) => {
-    listSeat.map(async(item)=>{
-      const value = {
-        // movie_price_id: 1,
-        // room_id:1,
-        ticket_type_id: 1,
-        seat_id: item,
-        schedule_id: Number(values.idChoiceSchedule),
-        calendars_id: Number(values.idChoiceDay),
-        bill_id: id,
-      };
-      console.log(listSeat);
-  
-      console.log(value);
+    listSeat.map(async (item, index) => {
+      let valueTicket;
+      if (amountTicket > 0) {
+        valueTicket = {
+          ticket_type_id: 2,
+          seat_id: item,
+          schedule_id: Number(values.idChoiceSchedule),
+          calendars_id: Number(values.idChoiceDay),
+          bill_id: id,
+        };
+        amountTicket--;
+      } else if (amountChildrenTicket > 0) {
+        valueTicket = {
+          ticket_type_id: 1,
+          seat_id: item,
+          schedule_id: Number(values.idChoiceSchedule),
+          calendars_id: Number(values.idChoiceDay),
+          bill_id: id,
+        };
+      }
+
+      // console.log(listSeat);
+
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(value),
+        body: JSON.stringify(valueTicket),
       };
       await fetch(`${API}ticket/create`, requestOptions)
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
           }
         })
         .catch((error) => console.log(error));
-    })
-    
+    });
   };
-  console.log(amountChildrenTicket, amountTicket);
+  console.log(listNameSeat);
 
   return (
     <div className="wrap-ticket">
@@ -108,14 +125,8 @@ function InfoBuyTicket(props) {
         </div>
         <div>
           Ghế:
-          {listSeat.map((item, index) => (
-            <>
-              {index - 1 === listSeat.length ? (
-                <span key={index}>{item}</span>
-              ) : (
-                <span> {item} </span>
-              )}
-            </>
+          {listNameSeat.map((item, index) => (
+            <span> {item} </span>
           ))}
         </div>
         <div>Tổng tiền: {total}</div>
@@ -147,14 +158,14 @@ function InfoBuyTicket(props) {
             ) : (
               <button
                 onClick={() => {
-                  if (amountTicket !== 0 || amountChildrenTicket !==0) {
+                  if (amountTicket !== 0 || amountChildrenTicket !== 0) {
                     setShowSeat(true);
                     setShowBack(true);
                   }
                 }}
                 className="btn"
               >
-                TIẾP TỤC
+                TIẾP TỤC-
               </button>
             )}
           </div>

@@ -8,7 +8,7 @@ function Seat(props) {
   const [seat, setSeat] = useState([]);
   const param = useParams();
 
-  const { amountTicket, amountChildrenTicket , listSeat, setListSeat } = props;
+  const { amountTicket, amountChildrenTicket , listSeat, setListSeat, setListNameSeat } = props;
   const values = JSON.parse(localStorage.getItem("bookTickettTemp"));
   useEffect(() => {
     const getSeat = async () => {
@@ -21,6 +21,18 @@ function Seat(props) {
     getSeat();
   }, [param.id]);
   const handleChoiceTicket = (item) => {
+    setListNameSeat((prevListSeat) => {
+      const isAlreadySelected = prevListSeat.includes(item.name);
+      if (isAlreadySelected) {
+        return prevListSeat.filter((seat) => seat !== item.name);
+      } else if (prevListSeat.length === Number(amountTicket + amountChildrenTicket)) {
+        const newListSeat = prevListSeat.slice(1);
+        newListSeat.push(item.name);
+        return newListSeat;
+      } else {
+        return [...prevListSeat, item.name];
+      }
+    });
     setListSeat((prevListSeat) => {
       const isAlreadySelected = prevListSeat.includes(item.id);
       if (isAlreadySelected) {
@@ -34,20 +46,7 @@ function Seat(props) {
       }
     });
   };
-  const viewSeatSelected = (item) => {
-    setListSeat((prevListSeat) => {
-      const isAlreadySelected = prevListSeat.includes(item.name);
-      if (item.status === false) {
-        return prevListSeat.filter((seat) => seat !== item.name);
-      } else if (prevListSeat.length === Number(amountTicket + amountChildrenTicket)) {
-        const newListSeat = prevListSeat.slice(1);
-        newListSeat.push(item.name);
-        return newListSeat;
-      } else {
-        return [...prevListSeat, item.name];
-      }
-    });
-  };
+  
 
   return (
     <div className="wrap-seat">

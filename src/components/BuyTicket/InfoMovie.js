@@ -31,17 +31,18 @@ function InfoMovie(props) {
       const res = await fetch(`${API}movie/info/${param.id}`);
       const getData = await res.json();
       setInfo(getData.data[0]);
+
       setMovieChoiseinfo(param.id);
     };
     getInfo();
   }, [param.id]);
-
+  // console.log(info);
   useEffect(() => {
     const getInfoActor = async () => {
       const res = await fetch(`${API}movie/getactorbymovie/${param.id}`);
       const getData = await res.json();
       setInfoActor(getData.data);
-      // console.log(getData.data);
+       console.log(getData.data);
     };
     getInfoActor();
   }, [param.id]);
@@ -58,7 +59,9 @@ function InfoMovie(props) {
 
   return (
     <div>
-      <BuyTicket movieChoiseinfo={movieChoiseinfo} setValues={setValues} />
+      {info.movie_status_id === "1" && (
+        <BuyTicket movieChoiseinfo={movieChoiseinfo} setValues={setValues} />
+      )}
       <div className="info-content">
         <div className="info-content-wrap">
           <img className="image" src={info?.poster} alt=""></img>
@@ -77,7 +80,7 @@ function InfoMovie(props) {
           <h2>{info?.slug}</h2>
           <h2>Thời lượng: {info?.duration} Phút</h2>
           <h2>Phân loại dành cho người: {info?.age_limit} tuổi trở lên</h2>
-          <div>Đạo diễn: {info?.name} </div>
+          <div>Đạo diễn: {info?.full_name} </div>
           <div>Quốc gia: {info?.country_name}</div>
           <div>
             Diễn viên:
@@ -102,13 +105,16 @@ function InfoMovie(props) {
             </>
           </div>
           <div>Ngày khởi chiếu: {info?.release_date}</div>
-          {info.movie_status_id=== "1" ? <div>
-
+          {info.movie_status_id === "1" ? (
             <div>
-              Đánh giá: <HoverRating />
+              <div>
+                Đánh giá: <HoverRating />
+              </div>
+              <div>Tổng sao:</div>
             </div>
-            <div>Tổng sao:</div>
-          </div>: <></>}
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className="info-content-movie">

@@ -24,12 +24,7 @@ function Navbar() {
           </div>
         </li>
 
-        <li className="dropdown">
-          <Link to="javascript:void(0)" className="dropbtn">
-            LỊCH CHIẾU
-          </Link>
-          <div className="dropdown-content">{/* link dropdown */}</div>
-        </li>
+        
 
         <li className="dropdown">
           <Link to="/infoticket" className="dropbtn">
@@ -39,7 +34,7 @@ function Navbar() {
         </li>
        
         <li className="dropdown">
-          <Link to="javascript:void(0)" className="dropbtn">
+          <Link to="/contact" className="dropbtn">
             HỖ TRỢ
           </Link>
           <div className="dropdown-content">{/* link dropdown */}</div>

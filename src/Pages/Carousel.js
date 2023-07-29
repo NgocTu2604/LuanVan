@@ -31,7 +31,7 @@ function Carousel() {
     
     dots: true,
     infinite: true,
-    arrows: false,
+    // showArrows: false,
     autoplay: true,
     autoplayspeed: 1000,
     speed: 500,
@@ -42,7 +42,6 @@ function Carousel() {
   };
   const listImage = [
     'https://res.cloudinary.com/dia5z4i6s/image/upload/v1690270239/movie/oodinocpb8liftu0enrd.jpg',
-    'https://res.cloudinary.com/dia5z4i6s/image/upload/v1690270238/movie/sldacaacmqgwvzvszah0.jpg',
     'https://res.cloudinary.com/dia5z4i6s/image/upload/v1690271162/movie/oko8iyl6jrjvutti6wua.jpg',
     'https://res.cloudinary.com/dia5z4i6s/image/upload/v1690272059/movie/fcaozn8x43orpkfadd2s.jpg',
     'https://res.cloudinary.com/dia5z4i6s/image/upload/v1690273293/xoq7eroby6bj47hrtkcw.jpg',

@@ -4,6 +4,7 @@
   justify-content: space-around;
 }
 .header-logo {
+  margin-top: 15px;
   font-size: 50px;
   text-transform: uppercase;
   font-weight: 700;
@@ -13,12 +14,16 @@
   padding: 20px 0;
   display: flex;
 }
+
 .header-login p {
   margin: 20px;
 }
+.header-login p:hover{
+  color: red;
+}
 
 /*thanh searchbar*/
-.search-bar-container{
+.search-bar-container {
   padding-top: 10px;
   width: 30%;
   /* margin: auto; */
@@ -28,24 +33,22 @@
   min-width: 200px;
 }
 
-
 /**/
 
 /*HIEN THI SLIDE*/
-.big-wrap{
+.big-wrap {
   position: relative;
 }
-.wrap-slide{
+.wrap-slide {
   height: 300px;
 }
-.slide-item-wrap{
+.slide-item-wrap {
   width: 100%;
   height: 500px;
   object-fit: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
 /**/
 
@@ -67,8 +70,7 @@
 .content-item-wrap {
   position: relative;
   width: 100%;
-  background-color: rgba(0,0,0,0.7);
-
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .content-item-wrap:hover .image {
   opacity: 0.3;
@@ -95,7 +97,6 @@
   -ms-transform: translate(-50%, -50%);
   text-align: center;
   cursor: pointer;
-
 }
 .text {
   background-color: #04aa6d;
@@ -119,7 +120,6 @@
   color: #a0a3a7;
 }
 /**/
-
 
 /*footer*/
 .footer-bg {
@@ -156,9 +156,9 @@
 .footer-item li {
   font-size: 18px;
   line-height: 40px;
-  cursor: pointer;  
+  cursor: pointer;
 }
-.footer-item li:hover{
+.footer-item li:hover {
   color: red;
 }
 /**/
@@ -171,13 +171,14 @@
   font-size: 20px;
   display: flex;
   justify-content: flex-start;
-  user-select: none;  
+  user-select: none;
 }
 
 .footer-bottom-logo {
   margin: 0 50px 0 100px;
 }
-.footer-bottom-logo:hover, .footer-bottom-address:hover{
+.footer-bottom-logo:hover,
+.footer-bottom-address:hover {
   color: red;
 }
 /**/
@@ -205,8 +206,7 @@
   cursor: pointer;
 }
 /**/
-.modal_trailer{
+.modal_trailer {
   width: 100%;
   height: 100%;
 }
-
